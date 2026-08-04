@@ -151,4 +151,3 @@ Use the repository's `CITATION.cff` file and cite the accompanying manuscript. A
 
 The source code is distributed under the MIT License. The privacy restrictions applying to the original educational records remain unchanged; those records are not included in this repository.
 
-For the exact GitHub creation steps, repository description, and suggested topics, see `GITHUB_UPLOAD_INSTRUCTIONS.md`.
