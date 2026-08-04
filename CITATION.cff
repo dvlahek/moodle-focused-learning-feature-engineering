@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying manuscript and this repository."
+type: software
+title: "Moodle Focused-Learning Feature Engineering"
+abstract: "An interpretable feature-engineering and evaluation workflow for Moodle learning analytics using focused learning windows and environmental context."
+authors:
+  - family-names: "Vlahek"
+    given-names: "Dino"
+version: 1.0.0
+date-released: 2026-08-04
+license: MIT
+keywords:
+  - Moodle
+  - learning analytics
+  - educational data mining
+  - feature engineering
+  - interpretable machine learning
+  - early warning

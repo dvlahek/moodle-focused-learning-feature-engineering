@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "contains_real_student_data": false,
+  "seed": 2026,
+  "students_per_year": 60,
+  "exam_datetimes": {
+    "2023": "2023-12-13 18:00:00",
+    "2024": "2024-12-03 16:00:00"
+  },
+  "totals": {
+    "2023": {
+      "students": 60,
+      "log_records": 3427
+    },
+    "2024": {
+      "students": 60,
+      "log_records": 3373
+    }
+  },
+  "privacy_notice": "These artificial data contain no real student, grade, Moodle, or environmental records.",
+  "results_notice": "Outputs derived from these data are execution checks and are not study findings."
+}
