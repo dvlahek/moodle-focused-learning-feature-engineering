@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate privacy-safe synthetic inputs for the supplementary pipeline.
 
 The generated records are artificial. They contain no real student identifiers,
