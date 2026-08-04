@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Run regression, classification, cross-year, permutation, and importance analyses."""
 
 from __future__ import annotations
