@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate synthetic inputs and execute the complete supplementary workflow."""
 
 from __future__ import annotations
