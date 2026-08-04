@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Build the interpretable feature dataset from Moodle-style event logs."""
 
 from __future__ import annotations
