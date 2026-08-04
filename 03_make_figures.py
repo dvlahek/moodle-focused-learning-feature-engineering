@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Create compact figures from saved evaluation CSV files."""
 
 from __future__ import annotations
