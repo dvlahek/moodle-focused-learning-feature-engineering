@@ -1,0 +1,27 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local outputs and trained models
+results/
+*.joblib
+*.pkl
+
+# Protected or local data: never commit these directories
+data_real/
+raw_data/
+protected_data/
+local_data/
+
+# The privacy-safe data_dummy/ and results_dummy/ directories are intentionally tracked.
