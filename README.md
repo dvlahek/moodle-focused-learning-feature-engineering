@@ -25,9 +25,6 @@ No real student data are included. Every file under `data_dummy/` is generated a
 
 Results produced from the dummy data are **smoke-test outputs only**. They do not reproduce or replace the numerical findings reported in the manuscript.
 
-> [!IMPORTANT]
-> Do not commit protected Moodle logs, student identifiers, assessment records, environmental files used in the original study, or outputs derived from the original study data. Only the synthetic example files are intended for public distribution.
-
 ## Leakage-safe preprocessing
 
 All data-dependent predictor pruning is fitted **inside the training partition**. In each cross-validation fold, zero-variance removal and pairwise-correlation pruning (`|r| > 0.95`) are estimated using the training fold only. The resulting selected columns are then applied unchanged to the held-out fold. For XGBoost classification, `scale_pos_weight` is calculated from the training labels only.
@@ -77,7 +74,7 @@ python run_all.py --quick
 
 This regenerates the synthetic inputs, creates `data_dummy/dummy_feature_dataset.csv`, runs the evaluation stages, and writes outputs to `results_dummy/`.
 
-Quick mode uses 80 trees, 10 environmental permutations, and 5 permutation-importance repeats. It is intended only to confirm that the pipeline executes.
+Quick mode uses 80 trees, 10 environmental permutations, and 5 permutation-tance repeats. It is intended only to confirm that the pipeline executes.
 
 ## Paper-aligned configuration
 
