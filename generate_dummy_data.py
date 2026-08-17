@@ -37,6 +37,7 @@ def generate_weather(rng: np.random.Generator, years: list[int]) -> pd.DataFrame
             seasonal = np.sin(offset / 9.0)
             tavg = 7.0 + 3.0 * seasonal + rng.normal(0, 1.8)
             prcp = max(0.0, rng.gamma(1.3, 1.7) - 1.2)
+            wspd = max(0.2, rng.normal(10, 3))
             rows.append(
                 {
                     "date": date.isoformat(),
@@ -46,8 +47,11 @@ def generate_weather(rng: np.random.Generator, years: list[int]) -> pd.DataFrame
                     "tmin": round(tavg - rng.uniform(2.0, 5.0), 2),
                     "tmax": round(tavg + rng.uniform(2.0, 5.0), 2),
                     "prcp": round(prcp, 2),
+                    "snow": round(max(0.0, rng.gamma(0.6, 0.8) - 0.7), 2),
                     "wdir": round(float(rng.uniform(0, 360)), 2),
-                    "wspd": round(max(0.2, rng.normal(10, 3)), 2),
+                    "wspd": round(wspd, 2),
+                    "wpgt": round(wspd + max(0.0, rng.normal(5, 2)), 2),
+                    "pres": round(rng.normal(1016, 8), 2),
                 }
             )
     return pd.DataFrame(rows).sort_values("date").reset_index(drop=True)
@@ -65,20 +69,18 @@ def generate_student_records(
     total_events = int(np.clip(round(48 + 15 * latent_engagement + rng.normal(0, 9)), 22, 105))
     rows: list[dict] = []
 
-    # Guarantee at least one pre-assessment learning-material event per synthetic
-    # student so the focused-window algorithm has a well-defined input.
     guaranteed_material_time = random_timestamp(rng, preparation_start, hour_center=16)
     rows.append(
         {
             "student_id": student_id,
             "timestamp": guaranteed_material_time.strftime("%Y-%m-%d %H:%M:%S"),
             "component": "File",
-            "context": "Learning material 1.pdf",
+            "context": "Datoteka: 1 - Learning material.pdf",
             "event_name": "Course module viewed",
         }
     )
 
-    for event_index in range(total_events):
+    for _ in range(total_events):
         focused = rng.random() < (0.48 + 0.18 * (latent_engagement > 0))
         if focused:
             day_offset = int(rng.integers(0, max(1, preparation_lead)))
@@ -96,14 +98,14 @@ def generate_student_records(
 
         if component_choice == "File":
             material_number = int(rng.integers(1, 9))
-            context = f"Learning material {material_number}.pdf"
+            context = f"Datoteka: {material_number} - Learning material.pdf"
             event_name = "Course module viewed"
         elif component_choice == "Assignment":
             assignment_number = int(rng.integers(1, 4))
-            context = f"Assignment: {assignment_number}"
+            context = f"Zadaća: {assignment_number}"
             event_name = "Submission status viewed"
         elif component_choice == "Quiz":
-            context = f"Quiz: {int(rng.integers(1, 4))}"
+            context = f"Test: {int(rng.integers(1, 4))}"
             event_name = "Quiz attempt viewed"
         else:
             context = "Course forum"
@@ -119,7 +121,6 @@ def generate_student_records(
             }
         )
 
-    # Add explicit assignment submissions for well-defined completion-time features.
     for assignment_number in range(1, 4):
         first_day = exam - timedelta(days=int(rng.integers(10, 40)))
         submit_day = first_day + timedelta(days=int(np.clip(rng.normal(5 - latent_engagement, 2), 1, 12)))
@@ -130,22 +131,36 @@ def generate_student_records(
                     "student_id": student_id,
                     "timestamp": random_timestamp(rng, first_day, 16).strftime("%Y-%m-%d %H:%M:%S"),
                     "component": "Assignment",
-                    "context": f"Assignment: {assignment_number}",
+                    "context": f"Zadaća: {assignment_number}",
                     "event_name": "Submission status viewed",
                 },
                 {
                     "student_id": student_id,
                     "timestamp": random_timestamp(rng, submit_day, 18).strftime("%Y-%m-%d %H:%M:%S"),
                     "component": "Assignment",
-                    "context": f"Assignment: {assignment_number}",
+                    "context": f"Zadaća: {assignment_number}",
                     "event_name": "Assignment submitted",
                 },
             ]
         )
 
     year_effect = 0.7 if year == 2024 else -0.2
-    score = np.clip(12.0 + 2.2 * latent_engagement + 0.025 * total_events + year_effect + rng.normal(0, 3.2), 0, 25)
-    grade = {"student_id": student_id, "kolokvij1": round(float(score), 2)}
+    exercise_activity = np.clip(7.0 + 1.4 * latent_engagement + rng.normal(0, 1.8), 0, 10)
+    score = np.clip(
+        12.0
+        + 2.2 * latent_engagement
+        + 0.025 * total_events
+        + 0.25 * exercise_activity
+        + year_effect
+        + rng.normal(0, 3.2),
+        0,
+        25,
+    )
+    grade = {
+        "student_id": student_id,
+        "kolokvij1": round(float(score), 2),
+        "Vjezbe": round(float(exercise_activity), 2),
+    }
     return rows, grade
 
 

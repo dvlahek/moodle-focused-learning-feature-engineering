@@ -6,6 +6,7 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 
+from src.common import ROLLING_WINDOW_DAYS
 from src.feature_engineering import build_combined_dataset
 
 
@@ -23,6 +24,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--exam-2024", type=parse_exam, required=True)
     parser.add_argument("--weather", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--window-days",
+        type=int,
+        default=ROLLING_WINDOW_DAYS,
+        help=f"Focused-learning rolling-window length in days (default: {ROLLING_WINDOW_DAYS})",
+    )
     return parser.parse_args()
 
 
@@ -34,6 +41,9 @@ if __name__ == "__main__":
         exams_by_year={2023: args.exam_2023, 2024: args.exam_2024},
         weather_path=args.weather,
         output_path=args.output,
+        window_days=args.window_days,
     )
-    print(f"Feature dataset written to {args.output.resolve()} ({len(output)} rows, {len(output.columns)} columns)")
-
+    print(
+        f"Feature dataset written to {args.output.resolve()} "
+        f"({len(output)} rows, {len(output.columns)} columns; k={args.window_days})"
+    )
