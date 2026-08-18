@@ -74,7 +74,7 @@ python run_all.py --quick
 
 This regenerates the synthetic inputs, creates `data_dummy/dummy_feature_dataset.csv`, runs the evaluation stages, and writes outputs to `results_dummy/`.
 
-Quick mode uses 80 trees, 10 environmental permutations, and 5 permutation-tance repeats. It is intended only to confirm that the pipeline executes.
+Quick mode uses 80 trees, 10 environmental permutations, and 5 permutationtance repeats. It is intended only to confirm that the pipeline executes.
 
 ## Paper-aligned configuration
 
