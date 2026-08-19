@@ -24,4 +24,7 @@ raw_data/
 protected_data/
 local_data/
 
-# The privacy-safe data_dummy/ and results_dummy/ directories are intentionally tracked.
+# The privacy-safe data_dummy/ directory is intentionally tracked.
+results_dummy/
+window_sensitivity/
+window_sensitivity_dummy/
