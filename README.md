@@ -36,7 +36,7 @@ The same rule is used for cross-year validation: pruning is fitted on the traini
 ```text
 .
 ├── data_dummy/                    # privacy-safe synthetic inputs
-├── results_dummy/                 # example smoke-test outputs
+├── results_dummy/                 # generated smoke-test outputs (created by run_all.py)
 ├── src/                           # feature engineering, evaluation, and figures
 ├── .github/workflows/             # automatic synthetic-data smoke test
 ├── generate_dummy_data.py
